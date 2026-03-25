@@ -1,2 +1,15 @@
-# social-media-sentiment-analysis-x
-Analyzed 5,000+ social media posts using Python to uncover sentiment trends and key discussion topics through NLP, topic modeling, and data visualization.
+# Social Media Sentiment & Topic Analysis on X
+
+This project analyzes ~5,000 social media posts to examine how conversation, sentiment, and influence behave in an unstructured text environment. The focus was on building a pipeline that could extract structure from noisy data and quantify how attention is distributed across users and content.
+
+The raw dataset required non-trivial preprocessing before analysis was meaningful. Text was normalized and tokenized using regex-based parsing rather than relying on built-in tokenizers, which allowed tighter control over what constitutes a valid token. Stopwords were removed using NLTK, with additional manual filtering applied to eliminate platform-specific noise such as retweet markers, URLs, and low-information tokens. These preprocessing decisions had a visible impact on frequency outputs, particularly when comparing distributions with and without filtering.
+
+To separate content signals from interaction signals, I extracted hashtags and user mentions using regex and flattened them into analyzable structures. Frequency distributions were then computed using Counter and Pandas operations. One consistent pattern was that activity is highly skewed: a small subset of terms and users accounts for a disproportionate share of the conversation, which makes raw counts misleading if interpreted at face value.
+
+To address this, I engineered influence metrics at both the user and tweet level. User influence was approximated as a function of follower count, network size, and engagement attributes, while tweet-level influence aggregated replies, retweets, quotes, and likes. This allowed ranking entities based on estimated visibility rather than frequency alone. Even with a simple additive formulation, the results showed strong concentration of influence among a small number of accounts, which aligns with typical social network dynamics.
+
+Sentiment analysis was implemented using TextBlob to compute polarity and subjectivity scores for each post. While the average polarity was slightly positive (~0.067), the distribution was wide and centered near neutral, making the mean a weak summary statistic. Examining extreme values provided more useful signal: positive sentiment was generally tied to entertainment-driven engagement, while negative sentiment appeared in more targeted critiques. This highlights a limitation of lexicon-based sentiment models, which tend to flatten context and nuance.
+
+From a data handling perspective, working with filtered DataFrame slices introduced common pitfalls such as chained assignment warnings (SettingWithCopyWarning). Addressing this requires explicit indexing with .loc[], which is important for ensuring transformations behave as expected in larger pipelines.
+
+Overall, the analysis shows that conversation around a single keyword is fragmented, influenced by a small number of high-visibility users, and structured around subtopics rather than the keyword itself. Extracting meaningful insight requires combining text-level preprocessing with user-level feature engineering rather than relying on isolated summary metrics.
