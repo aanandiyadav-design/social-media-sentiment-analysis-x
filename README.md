@@ -7,7 +7,7 @@
 - Influence was highly concentrated among a small number of users
 - Discussion clustered around subtopics rather than the keyword alone
 
-This project analyzes ~5,000 social media posts to examine how conversation, sentiment, and influence behave in an unstructured text environment. The focus was on building a pipeline that could extract structure from noisy data and quantify how attention is distributed across users and content.
+This project analyzes ~5,000 social media posts collected around a single keyword to examine how conversation, sentiment, and influence behave in an unstructured text environment. The focus was on building a pipeline that could extract structure from noisy data and quantify how attention is distributed across users and content.
 
 The raw dataset required non-trivial preprocessing before analysis was meaningful. Text was tokenized using regex-based parsing rather than relying on built-in tokenizers, allowing tighter control over what constitutes a valid token. Stopwords were removed using NLTK, with additional manual filtering applied to eliminate platform-specific noise such as retweet markers, URLs, and low-information tokens. These preprocessing decisions had a visible impact on frequency outputs, particularly when comparing distributions with and without filtering.
 
@@ -17,7 +17,7 @@ To address this, I engineered influence metrics at both the user and tweet level
 
 For example, the most influential user in the retweet subset was Christina Aguilera, with an influence score exceeding 16 million, despite not being among the most active contributors. In contrast, the most frequent tweeting user contributed 40 posts but did not appear in the top influence rankings. This highlights a clear distinction between activity and visibility: users who post the most are not necessarily the ones shaping the conversation. One limitation of this approach is that all engagement types are weighted equally, which may not fully reflect how different interactions contribute to reach.
 
-This pattern is reinforced at the content level. High-frequency tokens such as “rt” indicate that much of the activity is driven by retweet amplification rather than original content generation. At the same time, terms like “wandavision”, “agatha”, and “spinoff” suggest that discussion clusters around specific subtopics rather than the keyword itself.
+This pattern is reinforced at the content level. High-frequency tokens such as “rt” indicate that much of the activity is driven by retweet amplification rather than original content generation. At the same time, terms such as “wandavision”, “agatha”, and “spinoff” show that discussion fragments into subtopics within the broader Disney-related conversation, rather than remaining centered on the keyword.
 
 Sentiment analysis was implemented using TextBlob to compute polarity and subjectivity scores for each post. While the average polarity was slightly positive (~0.067), the distribution was wide and centered near neutral, making the mean a weak summary statistic. Extreme values were more informative than the mean: positive sentiment was generally tied to entertainment-driven engagement, while negative sentiment appeared in more targeted critiques. This also highlights a limitation of lexicon-based sentiment models, which tend to flatten context and nuance, particularly in short-form social media text.
 
