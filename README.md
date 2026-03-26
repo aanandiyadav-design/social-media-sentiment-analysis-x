@@ -1,5 +1,12 @@
 # Social Media Sentiment & Topic Analysis on X
 
+**Key results**
+- ~5,000 posts analyzed
+- Average polarity: 0.06672
+- Average subjectivity: 0.37303
+- Influence was highly concentrated among a small number of users
+- Discussion clustered around subtopics rather than the keyword alone
+
 This project analyzes ~5,000 social media posts to examine how conversation, sentiment, and influence behave in an unstructured text environment. The focus was on building a pipeline that could extract structure from noisy data and quantify how attention is distributed across users and content.
 
 The raw dataset required non-trivial preprocessing before analysis was meaningful. Text was normalized and tokenized using regex-based parsing rather than relying on built-in tokenizers, which allowed tighter control over what constitutes a valid token. Stopwords were removed using NLTK, with additional manual filtering applied to eliminate platform-specific noise such as retweet markers, URLs, and low-information tokens. These preprocessing decisions had a visible impact on frequency outputs, particularly when comparing distributions with and without filtering.
@@ -13,3 +20,14 @@ Sentiment analysis was implemented using TextBlob to compute polarity and subjec
 From a data handling perspective, working with filtered DataFrame slices introduced common pitfalls such as chained assignment warnings (SettingWithCopyWarning). Addressing this requires explicit indexing with .loc[], which is important for ensuring transformations behave as expected in larger pipelines.
 
 Overall, the analysis shows that conversation around a single keyword is fragmented, influenced by a small number of high-visibility users, and structured around subtopics rather than the keyword itself. Extracting meaningful insight requires combining text-level preprocessing with user-level feature engineering rather than relying on isolated summary metrics.
+
+## Outputs
+
+**Word Cloud**  
+![Word Cloud](outputs/wordcloud.png)
+
+**Polarity Distribution**  
+![Polarity](outputs/polarity.png)
+
+**Subjectivity Distribution**  
+![Subjectivity](outputs/subjectivity.png)
